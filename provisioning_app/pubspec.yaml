@@ -1,0 +1,56 @@
+name: provisioning_app
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  viam_sdk: ^0.6.4
+  
+  viam_flutter_bluetooth_provisioning_widget:
+      git:
+        url: https://github.com/viamrobotics/viam_flutter_bluetooth_provisioning_widget.git
+        ref: 0.0.14
+
+  flutter_appauth: ^9.0.1
+  flutter_secure_storage: ^9.2.2
+  go_router: ^16.0.0
+  provider: ^6.1.5
+  shared_preferences: ^2.5.3
+  logger: ^2.6.1
+  webview_flutter: ^4.13.0
+  flutter_platform_widgets: ^7.0.0
+  package_info_plus: ^8.3.0
+  network_info_plus: ^6.1.4
+  permission_handler: ^12.0.1
+  grpc: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.10
+  mockito: ^5.4.4
+
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/
+
+# TODO: Replace with your own launch icon
+# Run: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/launch_icon.png"
+
+ 
