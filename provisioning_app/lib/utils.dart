@@ -84,7 +84,7 @@ Future<void> showAccountDeletionDialog(BuildContext context) {
                 MaterialPageRoute(
                   builder:
                       (context) => const WebView(
-                        url: 'https://canyonrunner.com/contact-us/',
+                        url: 'https://docs.viam.com/',
                         title: 'Account Support',
                       ),
                 ),
@@ -165,7 +165,7 @@ void localNetworkEnabledTest(BuildContext context) async {
                 ),
               ],
               title: const Text(
-                'Canyon Runner Connect needs access to your local network',
+                'Viam Sample App needs access to your local network',
               ),
               content: Text(
                 'The app will use your network to connect to your boat. Please enable Local Network access in settings',

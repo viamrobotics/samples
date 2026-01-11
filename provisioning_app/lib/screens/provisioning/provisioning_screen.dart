@@ -62,7 +62,7 @@ class ProvisioningScreen extends StatelessWidget {
                 isNewMachine: provisioningViewModel.isNewMachine,
                 connectBluetoothDeviceRepository:
                     ConnectBluetoothDeviceRepository(),
-                psk: "canyonrunner",
+                psk: "viamsetup",
                 fragmentId: null,
                 agentMinimumVersion: "0.20.0",
               ),
