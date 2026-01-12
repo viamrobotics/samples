@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:viam_flutter_bluetooth_provisioning_widget/viam_flutter_bluetooth_provisioning_widget.dart';
 
 import '../../routing/routes.dart';
@@ -21,10 +20,7 @@ class ProvisioningScreen extends StatelessWidget {
       listenable: provisioningViewModel,
       builder: (context, child) {
         if (provisioningViewModel.loading) {
-          return Scaffold(
-            appBar: AppBar(title: const Text('Setup')),
-            body: const Center(child: CircularProgressIndicator()),
-          );
+          return Scaffold(appBar: AppBar(title: const Text('Setup')), body: const Center(child: CircularProgressIndicator()));
         }
         if (provisioningViewModel.error != null) {
           return Scaffold(
@@ -39,47 +35,27 @@ class ProvisioningScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(provisioningViewModel.error.toString()),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => provisioningViewModel.init(),
-                    child: const Text('Try again'),
-                  ),
+                  ElevatedButton(onPressed: () => provisioningViewModel.init(), child: const Text('Try again')),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => goToHome(context),
-                    child: const Text('Go to home'),
-                  ),
+                  ElevatedButton(onPressed: () => goToHome(context), child: const Text('Go to home')),
                 ],
               ),
             ),
           );
         }
-        return ChangeNotifierProvider(
-          create:
-              (ctx) => BluetoothProvisioningFlowViewModel(
-                viam: provisioningViewModel.viam!,
-                robot: provisioningViewModel.robot!,
-                mainRobotPart: provisioningViewModel.mainPart!,
-                isNewMachine: provisioningViewModel.isNewMachine,
-                connectBluetoothDeviceRepository:
-                    ConnectBluetoothDeviceRepository(),
-                psk: "viamsetup",
-                fragmentId: null,
-                agentMinimumVersion: "0.20.0",
-              ),
-          builder:
-              (ctx, child) => BluetoothProvisioningFlow(
-                onSuccess: () => goToHome(context),
-                handleAgentConfigured: () => goToHome(context),
-                existingMachineExit: () => goToHome(context),
-                nonexistentMachineExit: () => goToHome(context),
-
-                agentMinimumVersionExit: () {
-                  // CP 7/32/2025: Go to old hostpot provisioning flow for now. CR may want to upgrade in the future.
-                  goToHome(context);
-                  // Going to the new flow will look like this:
-                  // _pushToHotspotProvisioning(initialContext, viam, robot, mainPart);
-                },
-              ),
+        return BluetoothProvisioningFlow(
+          viam: provisioningViewModel.viam,
+          robot: provisioningViewModel.robot,
+          isNewMachine: true,
+          mainRobotPart: provisioningViewModel.mainPart,
+          psk: 'viamsetup',
+          fragmentId: null,
+          agentMinimumVersion: '0.20.0',
+          copy: BluetoothProvisioningFlowCopy(),
+          onSuccess: () => goToHome(context),
+          existingMachineExit: () => goToHome(context),
+          nonexistentMachineExit: () => goToHome(context),
+          agentMinimumVersionExit: () => goToHome(context),
         );
       },
     );
