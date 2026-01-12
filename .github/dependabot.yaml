@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+# Update dependencies for the provisioning app
+  - package-ecosystem: "pub"
+    directory: "/provisioning_app"
+    schedule:
+      interval: "weekly"
