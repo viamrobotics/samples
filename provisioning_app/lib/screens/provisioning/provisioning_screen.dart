@@ -55,12 +55,7 @@ class ProvisioningScreen extends StatelessWidget {
           onSuccess: () => goToHome(context),
           existingMachineExit: () => goToHome(context),
           nonexistentMachineExit: () => goToHome(context),
-          agentMinimumVersionExit: () {
-            // CP 7/32/2025: Go to old hostpot provisioning flow for now. CR may want to upgrade in the future.
-            goToHome(context);
-            // Going to the new flow will look like this:
-            // _pushToHotspotProvisioning(initialContext, viam, robot, mainPart);
-          },
+          agentMinimumVersionExit: () => goToHome(context),
         );
       },
     );
