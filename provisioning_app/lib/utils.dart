@@ -82,10 +82,11 @@ Future<void> showAccountDeletionDialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
+                  // TODO: Update the URL and title to point to the appropriate support page
                   builder:
                       (context) => const WebView(
-                        url: 'https://docs.viam.com/',
-                        title: 'Account Support',
+                        url: 'TODO', 
+                        title: 'TODO', 
                       ),
                 ),
               );
