@@ -65,21 +65,6 @@ class AuthService {
     }
   }
 
-  Future<void> refreshConnection() async {
-    if (_userRefreshToken == null) {
-      return;
-    }
-    try {
-      if (!_validTokens()) await _refreshTokens;
-    } catch (e) {
-      if (e.toString().contains("Connection error") || e.toString().contains("Network error")) {
-        isConnectionError = true;
-        return;
-      }
-    }
-    isConnectionError = false;
-  }
-
   Future<void> loginAction() async {
     final result = await appAuth.authorizeAndExchangeCode(
       AuthorizationTokenRequest(
