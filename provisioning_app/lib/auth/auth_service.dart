@@ -96,7 +96,7 @@ class AuthService {
   }
 
   Future<String> get accessToken async {
-    if (!_validTokens() && _userRefreshToken != null) {
+    if (!_validTokens()) {
       await _refreshTokens;
     }
 
@@ -108,7 +108,7 @@ class AuthService {
   }
 
   Future<ViamUserProfile> get currentUser async {
-    if (!_validTokens() && _userRefreshToken != null) {
+    if (!_validTokens()) {
       await _refreshTokens;
     }
 
@@ -136,7 +136,7 @@ class AuthService {
       return false;
     }
 
-    // check if the token is 1 minute or less away frome expiring
+    // check if the token is 1 minute or less away from expiring
     if (_accessTokenExpiration!.isBefore(DateTime.now()..subtract(Duration(minutes: 1)))) {
       return false;
     }
