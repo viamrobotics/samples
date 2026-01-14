@@ -12,9 +12,7 @@ class AuthService {
           FlutterSecureStorage(
             aOptions: AndroidOptions(encryptedSharedPreferences: true),
             // This allows the the background task to access the secure storage even when the app is in the background
-            iOptions: IOSOptions(
-              accessibility: KeychainAccessibility.first_unlock,
-            ),
+            iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
           ) {
     init();
   }
@@ -26,10 +24,8 @@ class AuthService {
 
   // Your Viam App Auth Client ID, you can get this from the Viam CLI.
   static const String authClientID = 'YOUR CLIENT ID';
-  static const String _authLoginRedirectUri =
-      'YOUR APP BUNDLE ID://login-callback';
-  static const String _authLogoutRedirectUri =
-      'YOUR APP BUNDLE ID://logout-callback';
+  static const String _authLoginRedirectUri = 'YOUR APP BUNDLE ID://login-callback';
+  static const String _authLogoutRedirectUri = 'YOUR APP BUNDLE ID://logout-callback';
 
   // You don't need to change these
   static const String _serviceHost = 'app.viam.com';
@@ -60,27 +56,13 @@ class AuthService {
       return true;
     } catch (e, s) {
       print('error on Refresh Token: $e - stack: $s');
-      if (e.toString().contains("Connection error") ||
-          e.toString().contains("Network error")) {
+      if (e.toString().contains("Connection error") || e.toString().contains("Network error")) {
         isConnectionError = true;
         return true;
       }
       // logOut() possibly
       return false;
     }
-  }
-
-  Future<void> refreshConnection() async {
-    try {
-      if (!_validTokens()) await _refreshTokens;
-    } catch (e) {
-      if (e.toString().contains("Connection error") ||
-          e.toString().contains("Network error")) {
-        isConnectionError = true;
-        return;
-      }
-    }
-    isConnectionError = false;
   }
 
   Future<void> loginAction() async {
@@ -114,13 +96,26 @@ class AuthService {
   }
 
   Future<String> get accessToken async {
-    if (!_validTokens()) await _refreshTokens;
+    if (!_validTokens()) {
+      await _refreshTokens;
+    }
+
+    if (_userAccessToken == null) {
+      throw Exception('No access token available. User must log in.');
+    }
 
     return _userAccessToken!;
   }
 
   Future<ViamUserProfile> get currentUser async {
-    if (!_validTokens()) await _refreshTokens;
+    if (!_validTokens()) {
+      await _refreshTokens;
+    }
+
+    if (_userProfile == null) {
+      throw Exception('No user profile available. User must log in.');
+    }
+
     return _userProfile!;
   }
 
@@ -141,10 +136,8 @@ class AuthService {
       return false;
     }
 
-    // check if the token is 1 minute or less away frome expiring
-    if (_accessTokenExpiration!.isBefore(
-      DateTime.now()..subtract(Duration(minutes: 1)),
-    )) {
+    // check if the token is 1 minute or less away from expiring
+    if (_accessTokenExpiration!.isBefore(DateTime.now()..subtract(Duration(minutes: 1)))) {
       return false;
     }
 
@@ -152,6 +145,10 @@ class AuthService {
   }
 
   Future<TokenResponse> get _refreshTokens async {
+    if (_userRefreshToken == null) {
+      throw Exception('Cannot refresh tokens: no refresh token available');
+    }
+
     try {
       final result = await appAuth.token(
         TokenRequest(
@@ -217,9 +214,7 @@ class ViamUserProfile {
     final parts = idToken.split(r'.');
     assert(parts.length == 3);
 
-    final json = jsonDecode(
-      utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
-    );
+    final json = jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))));
     final givenName = json['given_name'] ?? '';
     final familyName = json['family_name'] ?? '';
     final name = '$givenName $familyName';
