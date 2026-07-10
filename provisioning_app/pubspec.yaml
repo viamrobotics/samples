@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  viam_sdk: ^0.15.0
+  viam_sdk: ^0.19.4
   
   viam_flutter_bluetooth_provisioning_widget: ^0.1.0
   flutter_appauth: ^9.0.1
