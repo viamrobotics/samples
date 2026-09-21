@@ -14,18 +14,18 @@ dependencies:
   cupertino_icons: ^1.0.8
   viam_sdk: ^0.21.0
   
-  viam_flutter_bluetooth_provisioning_widget: ^0.1.0
+  viam_flutter_bluetooth_provisioning_widget: ^1.0.0
   flutter_appauth: ^12.0.2
-  flutter_secure_storage: ^10.3.1
+  flutter_secure_storage: ^11.0.0
   go_router: ^18.0.1
   provider: ^6.1.5
   shared_preferences: ^2.5.3
   logger: ^2.6.1
   webview_flutter: ^4.13.0
   flutter_platform_widgets: ^7.0.0
-  package_info_plus: ^9.0.0
-  network_info_plus: ^7.0.0
-  permission_handler: ^12.0.1
+  package_info_plus: ^10.2.1
+  network_info_plus: ^8.2.1
+  permission_handler: ^13.0.2
   grpc: ^4.1.0
 
 dev_dependencies:
