@@ -15,7 +15,7 @@ dependencies:
   viam_sdk: ^0.23.0
   
   viam_flutter_bluetooth_provisioning_widget: ^1.0.0
-  flutter_appauth: ^12.0.2
+  flutter_appauth: ^13.0.0
   flutter_secure_storage: ^11.0.0
   go_router: ^18.0.1
   provider: ^6.1.5
